@@ -1,14 +1,14 @@
 {
-  "name": "studiox-backend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "graphql-backend-boilerplate",
+  "version": "1.1.1",
+  "description": "This is a boilerplate for a GraphQL backend using TypeScript, Mongoose, and Apollo Server, with authentication and validation setup.",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Zunair Bin Zubair",
   "license": "ISC",
   "dependencies": {
     "@graphql-tools/merge": "^9.1.1",
