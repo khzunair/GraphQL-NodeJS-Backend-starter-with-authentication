@@ -1,4 +1,4 @@
-# 🚀 GraphQL Node.js Backend Starter with Authentication
+# Node.js | GraphQL | Backend Starter (with Authentication)
 
 [![Node.js Version](https://img.shields.io/badge/node.js-18%2B-brightgreen)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8%2B-blue)](https://www.typescriptlang.org/)
@@ -95,7 +95,7 @@ npm install
 Create a `.env` file in the root directory:
 ```env
 # Database
-MONGODB_URI=mongodb://localhost:27017/studiox
+MONGODB_URI=mongodb://localhost:27017/[your db url]
 
 # Authentication
 JWT_SECRET=your-super-secret-jwt-key-here
@@ -116,14 +116,13 @@ Open your browser and navigate to:
 http://localhost:5000/
 ```
 
-🎉 **Congratulations!** Your GraphQL backend is now running!
 
 ---
 
 ## 📁 Project Structure
 
 ```
-studiox-backend/
+node-gql-backend/
 ├── 📄 package.json                 # Dependencies and scripts
 ├── 📄 tsconfig.json               # TypeScript configuration
 ├── 📄 .env                        # Environment variables
@@ -167,7 +166,7 @@ Create a `.env` file with the following variables:
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/studiox` |
+| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/[your db address]` |
 | `JWT_SECRET` | Secret key for JWT signing | `your-super-secret-jwt-key` |
 | `PORT` | Server port number | `5000` |
 | `NODE_ENV` | Environment mode | `development` or `production` |
