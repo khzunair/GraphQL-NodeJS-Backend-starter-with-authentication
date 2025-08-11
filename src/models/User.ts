@@ -1,10 +1,7 @@
-import { getModelForClass, prop, modelOptions, pre, DocumentType } from "@typegoose/typegoose";
+import { getModelForClass, prop, modelOptions, pre, DocumentType, Ref } from "@typegoose/typegoose";
+import { IsEmail, IsString, MinLength, IsBoolean } from "class-validator";
 import bcrypt from "bcryptjs";
-
-export enum UserRole {
-  USER = "USER",
-  ADMIN = "ADMIN",
-}
+import { Role } from "./Role";
 
 @pre<User>("save", async function (next) {
   if (!this.isModified("password")) return next();
@@ -16,6 +13,9 @@ export enum UserRole {
     timestamps: true,
     toJSON: {
       transform: function(doc: any, ret: any) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
         delete ret.password;
         return ret;
       }
@@ -24,6 +24,7 @@ export enum UserRole {
 })
 export class User {
   @prop({ required: true, trim: true })
+  @IsString()
   public name!: string;
 
   @prop({ 
@@ -31,43 +32,28 @@ export class User {
     unique: true, 
     lowercase: true,
     trim: true,
-    validate: {
-      validator: function(email: string) {
-        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
-      },
-      message: 'Please enter a valid email'
-    }
   })
+  @IsEmail()
   public email!: string;
 
-  @prop({ 
-    required: true, 
-    select: false,
-    minlength: [6, 'Password must be at least 6 characters long']
-  })
+  @prop({ required: true, select: false })
+  @IsString()
+  @MinLength(6)
   public password!: string;
 
-  @prop({ enum: UserRole, default: UserRole.USER })
-  public role?: UserRole;
-
-  @prop({ default: Date.now })
-  public lastLogin?: Date;
+  @prop({ ref: () => Role, required: true })
+  public role!: Ref<Role>;
 
   @prop({ default: true })
+  @IsBoolean()
   public isActive!: boolean;
 
-  // Method to compare password
-  public async comparePassword(this: DocumentType<User>, candidatePassword: string): Promise<boolean> {
-    // Need to explicitly select password for comparison
-    const userWithPassword = await UserModel.findById(this.id).select('+password');
-    if (!userWithPassword) return false;
-    return bcrypt.compare(candidatePassword, userWithPassword.password);
-  }
+  // Timestamps
+  public createdAt!: Date;
+  public updatedAt!: Date;
 
-  // Method to update last login
-  public async updateLastLogin(this: DocumentType<User>): Promise<void> {
-    this.lastLogin = new Date();
-    await this.save();
+  public async comparePassword(this: DocumentType<User>, candidatePassword: string): Promise<boolean> {
+    return bcrypt.compare(candidatePassword, this.password);
   }
 }
 

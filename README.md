@@ -1,460 +1,310 @@
-# Node.js | GraphQL | Backend Starter (with Authentication)
+# 🚀 Role-Based API Starter
 
-[![Node.js Version](https://img.shields.io/badge/node.js-18%2B-brightgreen)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8%2B-blue)](https://www.typescriptlang.org/)
-[![GraphQL](https://img.shields.io/badge/GraphQL-16.11%2B-pink)](https://graphql.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green)](https://www.mongodb.com/)
-[![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![GraphQL](https://img.shields.io/badge/GraphQL-E10098?style=flat&logo=graphql&logoColor=white)](https://graphql.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Apollo Server](https://img.shields.io/badge/Apollo%20Server-311C87?style=flat&logo=apollo-graphql&logoColor=white)](https://www.apollographql.com/docs/apollo-server/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **A production-ready GraphQL Node.js backend boilerplate with JWT authentication, role-based authorization, and MongoDB integration using TypeScript and modern best practices.**
-
----
-
-## 📋 Table of Contents
-
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Prerequisites](#-prerequisites)
-- [Quick Start](#-quick-start)
-- [Project Structure](#-project-structure)
-- [Environment Variables](#-environment-variables)
-- [API Documentation](#-api-documentation)
-- [Authentication](#-authentication)
-- [Example Queries & Mutations](#-example-queries--mutations)
-- [Testing](#-testing)
-- [Deployment](#-deployment)
-- [Contributing](#-contributing)
-
----
+A production-ready **TypeScript GraphQL backend starter** with role-based authentication, built with modern best practices. Perfect for developers who want to quickly bootstrap a secure API with user management and permission systems.
 
 ## ✨ Features
 
-### 🔐 **Authentication & Authorization**
-- JWT-based authentication with configurable expiration
-- Role-based access control (USER, ADMIN)
-- Password hashing with bcryptjs
-- Session timeout handling
-- Protected GraphQL resolvers
-
-### 🏗️ **Architecture & Structure**
-- **TypeScript** for type safety and better developer experience
-- **Modular GraphQL** structure with separate queries, mutations, and types
-- **Typegoose** for MongoDB with TypeScript decorators
-- **Global error handling** with custom error classes
-- **Scalable folder structure** ready for multiple collections
-
-### 🛠️ **Development Experience**
-- **Hot reloading** with ts-node-dev
-- **GraphQL Playground** for API testing
-- **Environment-based configuration**
-- **Professional logging** and error tracking
-- **Code organization** following best practices
-
----
-
-## 🛠️ Tech Stack
-
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **Node.js** | 18+ | Runtime Environment |
-| **TypeScript** | 5.8+ | Type Safety & Developer Experience |
-| **Apollo Server** | 3.13+ | GraphQL Server |
-| **MongoDB** | Latest | Database |
-| **Typegoose** | 12.17+ | MongoDB ODM with TypeScript |
-| **JWT** | 9.0+ | Authentication |
-| **bcryptjs** | 3.0+ | Password Hashing |
-| **GraphQL** | 16.11+ | Query Language |
-
----
-
-## 📋 Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Node.js** (version 18 or higher)
-- **npm** or **yarn** package manager
-- **MongoDB** (local installation or cloud service like MongoDB Atlas)
-- **Git** for version control
-
----
+- 🔐 **JWT-based Authentication** with TypeScript types
+- 👥 **Role-Based Access Control** (RBAC) system
+- 🎯 **GraphQL API** with Apollo Server
+- 📦 **MongoDB Integration** using Typegoose
+- 🔒 **Password Hashing** with bcryptjs
+- 🌱 **Auto-seeding** of default roles and admin user
+- 📁 **Organized Resolver Structure** by feature
+- 🧪 **GraphQL Playground** for API testing
+- 🛡️ **Input Validation** and error handling
+- 📝 **TypeScript Throughout** for type safety
 
 ## 🚀 Quick Start
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/khzunair/GraphQL-NodeJS-Backend-starter-with-authentication.git
-cd GraphQL-NodeJS-Backend-starter-with-authentication
-```
+### Prerequisites
 
-### 2. Install Dependencies
+- **Node.js 18** (Required - if using newer versions, you may need `npm install --legacy-peer-deps`)
+- **MongoDB** (Local or cloud instance)
+- **Git**
+
+### Installation
+
 ```bash
+# Clone the repository
+git clone https://github.com/your-username/role-based-api-starter.git
+
+# Navigate to project directory
+cd role-based-api-starter
+
+# Install dependencies
 npm install
+
+# For Node.js versions newer than 18
+npm install --legacy-peer-deps
 ```
 
-### 3. Environment Setup
+### Environment Setup
+
 Create a `.env` file in the root directory:
+
 ```env
 # Database
-MONGODB_URI=mongodb://localhost:27017/[your db url]
+MONGO_URI=mongodb://localhost:27017/graphQLStarter
 
-# Authentication
-JWT_SECRET=your-super-secret-jwt-key-here
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_EXPIRES_IN=7d
 
-# Server
+# Server Configuration
 PORT=5000
 NODE_ENV=development
+
+# GraphQL
+GRAPHQL_INTROSPECTION=true
 ```
 
-### 4. Start the Development Server
+### Running the Project
+
 ```bash
+# Start development server
 npm run dev
+
+# Or start production server
+npm start
 ```
 
-### 5. Access GraphQL Playground
-Open your browser and navigate to:
-```
-http://localhost:5000/
-```
-
-
----
+The server will start at `http://localhost:5000` with GraphQL Playground available.
 
 ## 📁 Project Structure
 
 ```
-node-gql-backend/
-├── 📄 package.json                 # Dependencies and scripts
-├── 📄 tsconfig.json               # TypeScript configuration
-├── 📄 .env                        # Environment variables
-├── 📄 .gitignore                  # Git ignore rules
-├── 📄 README.md                   # Project documentation
-├── 📄 APPLICATION_OVERVIEW.md     # Detailed technical overview
-└── 📂 src/
-    ├── 📄 index.ts                # 🚀 Main server entry point
-    ├── 📄 db.ts                   # 🔌 MongoDB connection
-    ├── 📂 models/
-    │   └── 📄 User.ts             # 👤 User data model (Typegoose)
-    ├── 📂 middleware/
-    │   └── 📄 auth.ts             # 🔐 JWT authentication middleware
-    ├── 📂 utils/
-    │   └── 📄 errors.ts           # ⚠️ Global error handling
-    ├── 📂 services/
-    │   └── 📄 UserService.ts      # 🔧 Business logic layer
-    ├── 📂 types/
-    │   └── 📄 index.ts            # 📝 TypeScript definitions
-    └── 📂 graphql/
-        ├── 📄 index.ts            # 🔗 GraphQL exports
-        ├── 📂 queries/
-        │   └── 📄 getUsers.ts     # 🔍 Query resolvers
-        ├── 📂 mutations/
-        │   ├── 📄 registerUser.ts # ➕ User registration
-        │   ├── 📄 loginUser.ts    # 🔑 User authentication
-        │   ├── 📄 addUser.ts      # 👥 Admin user creation
-        │   ├── 📄 updateUser.ts   # ✏️ User updates
-        │   └── 📄 deleteUser.ts   # ❌ User deletion
-        ├── 📂 resolvers/
-        │   └── 📄 index.ts        # 🔀 Combined resolvers
-        └── 📂 typeDefs/
-            └── 📄 index.ts        # 📋 GraphQL schema
+src/
+├── models/                 # Typegoose models
+│   ├── User.ts            # User model with role reference
+│   └── Role.ts            # Role model with permissions
+├── graphql/
+│   ├── typeDefs/          # GraphQL schema definitions
+│   │   ├── userTypeDefs.ts
+│   │   ├── roleTypeDefs.ts
+│   │   └── index.ts
+│   └── resolvers/         # Organized by feature
+│       ├── user/          # User operations
+│       │   ├── mutations/ # Register, login, CRUD
+│       │   ├── queries/   # Get users, profile
+│       │   └── index.ts
+│       ├── role/          # Role management
+│       │   ├── mutations/ # Create, update, delete roles
+│       │   ├── queries/   # Get roles, permissions
+│       │   └── index.ts
+│       └── index.ts
+├── utils/
+│   ├── auth.ts            # JWT utilities & middleware
+│   ├── errors.ts          # Custom error classes
+│   └── seedRoles.ts       # Database seeding
+└── index.ts               # Server entry point
 ```
 
----
+## 🎮 API Usage
 
-## 🌍 Environment Variables
+### Access GraphQL Playground
 
-Create a `.env` file with the following variables:
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/[your db address]` |
-| `JWT_SECRET` | Secret key for JWT signing | `your-super-secret-jwt-key` |
-| `PORT` | Server port number | `5000` |
-| `NODE_ENV` | Environment mode | `development` or `production` |
-
----
-
-## 📚 API Documentation
-
-### 🔍 **Queries**
-
-#### Get All Users (Admin Only)
-```graphql
-query {
-  getUsers {
-    id
-    name
-    email
-    role
-    createdAt
-    updatedAt
-  }
-}
+Open your browser and navigate to:
+```
+http://localhost:5000
 ```
 
-### 🔧 **Mutations**
+### Default Credentials
 
-#### User Registration
+The system automatically creates a default admin user:
+- **Email:** `admin@example.com`
+- **Password:** `admin123`
+
+### Example Queries
+
+#### Login as Admin
 ```graphql
 mutation {
-  registerUser(
-    name: "John Doe"
-    email: "john@example.com"
-    password: "securePassword123"
-  ) {
-    id
-    name
-    email
-    role
-  }
-}
-```
-
-#### User Login
-```graphql
-mutation {
-  loginUser(
-    email: "john@example.com"
-    password: "securePassword123"
-  ) {
+  login(input: {
+    email: "admin@example.com"
+    password: "admin123"
+  }) {
     token
     user {
-      id
       name
       email
-      role
+      role {
+        name
+        displayName
+        permissions
+      }
     }
   }
 }
 ```
 
----
-
-## 🔐 Authentication
-
-### JWT Token Usage
-
-After logging in, include the JWT token in your requests:
-
-**Headers:**
-```json
-{
-  "Authorization": "Bearer your-jwt-token-here"
-}
-```
-
-### Role-Based Access Control
-
-| Role | Permissions |
-|------|-------------|
-| **USER** | Default role, basic access |
-| **ADMIN** | Full access to user management |
-
-### Protected Operations
-
-All CRUD operations require authentication:
-- ✅ `getUsers` - Admin only
-- ✅ `addUser` - Admin only  
-- ✅ `updateUser` - Admin only
-- ✅ `deleteUser` - Admin only
-
----
-
-## 📝 Example Queries & Mutations
-
-### 🚀 **Getting Started Examples**
-
-#### 1. Register Your First User
+#### Register New User
 ```graphql
-mutation RegisterUser {
-  registerUser(
-    name: "Jane Smith"
-    email: "jane@example.com"
-    password: "mySecurePassword"
-  ) {
-    id
-    name
-    email
-    role
-    createdAt
-  }
-}
-```
-
-#### 2. Login and Get Token
-```graphql
-mutation LoginUser {
-  loginUser(
-    email: "jane@example.com"
-    password: "mySecurePassword"
-  ) {
+mutation {
+  register(input: {
+    name: "John Doe"
+    email: "john@example.com"
+    password: "password123"
+  }) {
     token
     user {
-      id
       name
-      role
+      email
+      role {
+        name
+        displayName
+      }
     }
   }
 }
 ```
 
-#### 3. Admin Operations (Requires Admin Token)
+#### Create Role (Admin Only)
 ```graphql
-# First, make a user admin in MongoDB or create admin user
-mutation CreateAdminUser {
-  addUser(input: {
-    name: "Admin User"
-    email: "admin@example.com"
+# Add Authorization header: Bearer YOUR_ADMIN_TOKEN
+mutation {
+  createRole(input: {
+    name: "MANAGER"
+    displayName: "Manager"
+    description: "Can manage users"
+    permissions: ["READ_USER", "UPDATE_USER"]
   }) {
     id
     name
-    email
-    role
+    displayName
+    permissions
   }
-}
-
-# Get all users
-query GetAllUsers {
-  getUsers {
-    id
-    name
-    email
-    role
-    createdAt
-  }
-}
-
-# Update a user
-mutation UpdateUser {
-  updateUser(
-    id: "user-id-here"
-    name: "Updated Name"
-    email: "newemail@example.com"
-  ) {
-    id
-    name
-    email
-  }
-}
-
-# Delete a user
-mutation DeleteUser {
-  deleteUser(id: "user-id-here")
 }
 ```
 
----
+## 🔐 Authentication & Authorization
 
-## 🧪 Testing
+### Available Roles
+- **ADMIN**: Full system access, can manage users and roles
+- **USER**: Standard user access (default for new registrations)
 
-### Using GraphQL Playground
+### Permission System
+- Each role has specific permissions
+- Operations are protected by middleware
+- JWT tokens expire based on `JWT_EXPIRES_IN` setting
 
-1. **Start the server**: `npm run dev`
-2. **Open browser**: Navigate to `http://localhost:5000/`
-3. **Run queries**: Use the examples above
+### Using Authentication
+Add the authorization header to your requests:
+```json
+{
+  "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
+}
+```
 
-### Using cURL
+## 🛠️ Development
+
+### Available Scripts
 
 ```bash
-# Register a user
-curl -X POST http://localhost:5000/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "mutation { registerUser(name: \"Test User\", email: \"test@example.com\", password: \"password123\") { id name email } }"
-  }'
-
-# Login
-curl -X POST http://localhost:5000/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "mutation { loginUser(email: \"test@example.com\", password: \"password123\") { token user { id name } } }"
-  }'
+npm run dev        # Start development server with hot reload
+npm start          # Start production server
+npm run build      # Build TypeScript to JavaScript
+npm run lint       # Run linting
+npm test           # Run tests (if configured)
 ```
 
-### Authentication Testing
+### Project Architecture
 
-1. **Register a user** using the registration mutation
-2. **Login** and copy the returned JWT token
-3. **Add Authorization header** for protected operations:
-   ```json
-   {
-     "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
-   }
-   ```
-
----
+- **Models**: Typegoose classes with validation and hooks
+- **Resolvers**: Organized by feature with separate mutation/query files
+- **Authentication**: JWT-based with role checking middleware
+- **Validation**: Input validation with class-validator
+- **Error Handling**: Centralized error management
 
 ## 🚀 Deployment
 
-### Environment Setup
-```bash
-# Production environment variables
+### Environment Variables for Production
+
+```env
 NODE_ENV=production
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
-JWT_SECRET=your-production-secret-key
-PORT=5000
+MONGO_URI=your-production-mongodb-uri
+JWT_SECRET=your-very-secure-production-secret
+GRAPHQL_INTROSPECTION=false
 ```
 
-### Docker Deployment
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-RUN npm run build
-EXPOSE 5000
-CMD ["npm", "start"]
-```
+### Production Considerations
 
----
-
-## 🔧 Available Scripts
-
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Build TypeScript to JavaScript |
-| `npm start` | Start production server |
-| `npm test` | Run test suite (when implemented) |
-
----
+- Set a strong `JWT_SECRET`
+- Use a production MongoDB instance
+- Disable GraphQL introspection
+- Set up proper logging
+- Configure CORS for your frontend domain
+- Use HTTPS in production
 
 ## 🤝 Contributing
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
+This is an open-source project designed to help developers start with TypeScript GraphQL backends using best practices. Contributions are welcome!
 
----
+### How to Contribute
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow TypeScript best practices
+- Maintain the organized folder structure
+- Add proper error handling
+- Include input validation
+- Update documentation for new features
+
+## 📝 Tech Stack
+
+- **Backend**: Node.js 18, TypeScript
+- **API**: GraphQL with Apollo Server
+- **Database**: MongoDB with Typegoose ODM
+- **Authentication**: JWT (jsonwebtoken)
+- **Password Hashing**: bcryptjs
+- **Validation**: class-validator
+- **Development**: ts-node-dev for hot reload
+
+## 🔍 What's Included
+
+- ✅ User registration and authentication
+- ✅ Role-based access control
+- ✅ Password hashing and JWT tokens
+- ✅ GraphQL API with type definitions
+- ✅ Database models with relationships
+- ✅ Auto-seeding of default data
+- ✅ Organized resolver structure
+- ✅ Error handling and validation
+- ✅ Development environment setup
+
+## 🚀 Perfect For
+
+- **Startups** needing quick authentication setup
+- **Developers** learning GraphQL and TypeScript
+- **Projects** requiring role-based permissions
+- **APIs** that need user management
+- **Teams** wanting organized codebase structure
 
 ## 📄 License
 
-This project is licensed under the **ISC License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🆘 Support & Questions
-
-- **Issues**: [GitHub Issues](https://github.com/khzunair/GraphQL-NodeJS-Backend-starter-with-authentication/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/khzunair/GraphQL-NodeJS-Backend-starter-with-authentication/discussions)
-
----
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **Apollo GraphQL** for the excellent GraphQL server
-- **Typegoose** for MongoDB TypeScript integration
-- **TypeScript** team for making JavaScript better
-- **MongoDB** for the flexible database solution
+- Built with modern TypeScript and GraphQL best practices
+- Designed for rapid development and easy customization
+- Community-driven and open-source
 
 ---
 
-<div align="center">
+**Ready to build something amazing?** Clone this repo and start developing your next GraphQL API! 🚀
 
-### ⭐ If this project helped you, please give it a star!
-
-**Happy Coding!** 🚀
-
-</div>
+For questions or support, please open an issue on GitHub.

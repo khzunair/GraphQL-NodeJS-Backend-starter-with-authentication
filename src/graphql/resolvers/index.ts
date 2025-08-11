@@ -1,19 +1,8 @@
-import { getUsers } from "../queries/getUsers";
-import { registerUser } from "../mutations/registerUser";
-import { loginUser } from "../mutations/loginUser";
-import { addUser } from "../mutations/addUser";
-import { deleteUser } from "../mutations/deleteUser";
-import { updateUser } from "../mutations/updateUser";
+import { mergeResolvers } from '@graphql-tools/merge';
+import { userResolvers } from './user';
+import { roleResolvers } from './role';
 
-export const resolvers = {
-  Query: {
-    getUsers,
-  },
-  Mutation: {
-    registerUser,
-    loginUser,
-    addUser,
-    deleteUser,
-    updateUser,
-  },
-};
+export const resolvers = mergeResolvers([
+  userResolvers,
+  roleResolvers
+]);

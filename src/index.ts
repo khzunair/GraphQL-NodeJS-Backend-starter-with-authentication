@@ -1,33 +1,36 @@
-import "reflect-metadata";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+
 import { ApolloServer } from "apollo-server";
 import { typeDefs } from "./graphql/typeDefs";
-import { resolvers } from "./graphql/resolvers/userResolver";
+import { resolvers } from "./graphql/resolvers";
 import { connectDB } from "./db";
-import { createAuthContext, extractTokenFromHeader } from "./utils/auth";
-import { formatError } from "./utils/errors";
+import { seedRoles } from "./utils/seedRoles";
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => {
-    // Extract token from Authorization header
-    const authHeader = req.headers.authorization;
-    const token = extractTokenFromHeader(authHeader);
-    
-    // Create authentication context
-    const authContext = createAuthContext(token || undefined);
-    
-    return authContext;
-  },
-  formatError,
-  introspection: process.env.NODE_ENV !== "production",
-});
+async function startServer() {
+  try {
+    await connectDB();
+    await seedRoles();
 
-connectDB();
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers,
+      context: ({ req }) => ({ req }),
+      introspection: process.env.NODE_ENV !== 'production',
+    });
 
-const port = process.env.PORT || 5000;
 
-server.listen({ port }).then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-  console.log(`🔍 GraphQL Playground available in development mode`);
-});
+    const { url } = await server.listen({ port: process.env.PORT || 5000 });
+    console.log(`🚀 Server ready at ${url}`);
+    console.log(`🔍 GraphQL Playground available in development`);
+    console.log(`🔑 JWT_SECRET loaded: ${process.env.JWT_SECRET ? 'Yes' : 'No'}`);
+
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+    process.exit(1);
+  }
+}
+
+startServer();
